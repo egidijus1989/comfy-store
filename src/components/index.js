@@ -17,6 +17,7 @@ export { default as Navbar } from "./Navbar";
 export { default as NavLinks } from "./NavLinks";
 export { default as OrdersList } from "./OrdersList";
 export { default as PaginationContainer } from "./PaginationContainer";
+export { default as ProductsContainer } from "./ProductsContainer";
 export { default as ProductsGrid } from "./ProductsGrid";
 export { default as ProductsList } from "./ProductsList";
 export { default as SectionTitle } from "./SectionTitle";

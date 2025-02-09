@@ -1,5 +1,5 @@
 const PaginationContainer = () => {
-  return <div>PaginationContainer</div>;
+  return <>pagination</>;
 };
 
 export default PaginationContainer;

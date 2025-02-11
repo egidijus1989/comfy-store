@@ -3,11 +3,19 @@ import { removeItem, editItem } from "../features/cart/cartSlice";
 import { useDispatch } from "react-redux";
 
 const CartItem = ({ cartItem }) => {
-  const { cartId, title, price, image, amount, company, productColor } =
+  const dispatch = useDispatch();
+
+  const removeItemFromTheCart = () => {
+    dispatch(removeItem({ cartID }));
+  };
+  const handleAmount = (e) => {
+    dispatch(editItem({ cartID, amount: parseInt(e.target.value) }));
+  };
+  const { cartID, title, price, image, amount, company, productColor } =
     cartItem;
   return (
     <article
-      key={cartId}
+      key={cartID}
       className="mb-12 flex flex-col gap-y-4 sm:flex-row flex-wrap border-b border-base-300 pb-6 last:border-b-0"
     >
       {/*IMAGE*/}
@@ -34,7 +42,7 @@ const CartItem = ({ cartItem }) => {
           ></span>
         </p>
       </div>
-      <div className="sm:ml-24">
+      <div className="sm:ml-12">
         {/*AMOUNT*/}
         <div className="form-control max-w-xs">
           <label htmlFor="amout" className="label p-0">
@@ -43,13 +51,20 @@ const CartItem = ({ cartItem }) => {
               name="amount"
               id="amount"
               className="mt-2 select select-base select-bordered selext-xs"
+              value={amount}
+              onChange={handleAmount}
             >
               {generateAmountOption(amount + 5)}
             </select>
           </label>
         </div>
         {/*REMOVE*/}
-        <button className="mt-2 link link-primary link-hover">remove</button>
+        <button
+          className="mt-2 link link-primary link-hover"
+          onClick={removeItemFromTheCart}
+        >
+          remove
+        </button>
       </div>
       <p className="font-medium sm:ml-auto">{formatPrice(price)}</p>
       {/*PRICE*/}

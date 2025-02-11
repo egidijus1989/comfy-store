@@ -1,5 +1,24 @@
+import axios from "axios";
 import { FormInput, SubmitBtn } from "../components";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
+import { customFetch } from "../utils";
+import { toast } from "react-toastify";
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    const response = await customFetch.post("/auth/local/register", data);
+    toast.success("account created");
+    return redirect("/login");
+  } catch (error) {
+    const errorMessage =
+      error?.response?.data?.error?.message || "please check your credentials";
+    toast.error(errorMessage);
+    return null;
+  }
+};
 
 const Register = () => {
   return (
@@ -13,19 +32,19 @@ const Register = () => {
           type="username"
           label="username"
           name="username"
-          defaultValue="John Doe"
+          defaultValue="Torutis5"
         />
         <FormInput
           type="email"
           label="email"
           name="email"
-          defaultValue="test@test.com"
+          defaultValue="toras5@gmail.com"
         />
         <FormInput
           type="password"
           label="password"
           name="password"
-          defaultValue="secret"
+          defaultValue="toras1235"
         />
         <div className="mt-4">
           <SubmitBtn text="register" />

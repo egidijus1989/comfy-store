@@ -2,32 +2,14 @@ import { BsCart3, BsMoonFill, BsSunFill } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { NavLinks } from ".";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-
-const themes = {
-  retro: "retro",
-  luxury: "luxury",
-};
-
-const getThemeFromLocalStorage = () => {
-  return localStorage.getItem("theme") || themes.retro;
-};
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../features/user/userSlice";
 
 const Navbar = () => {
-  const [theme, setTheme] = useState(getThemeFromLocalStorage());
+  const dispatch = useDispatch();
   const handleTheme = () => {
-    const { retro, luxury } = themes;
-    const newTheme = theme === retro ? luxury : retro;
-
-    setTheme(newTheme);
+    dispatch(toggleTheme());
   };
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }),
-    [theme];
 
   const numItemsInCart = useSelector((state) => state.cartState.numItemsInCart);
   return (
